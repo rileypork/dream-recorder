@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dream Recorder — Turn your dreams into film</title>
+  <meta name="description" content="Dream Recorder turns your spoken or written dreams into cinematic AI films. Bring your own Luma API key." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="assets/logo-black.png" />
+</head>
+<body>
+
+  <!-- ==================== LANDING ==================== -->
+  <section id="view-landing" class="view">
+    <h1 class="wordmark">Dream Recorder</h1>
+    <p class="serif-sub">Turn your dreams into film.</p>
+
+    <img src="assets/device-mockup.png" alt="The Dream Recorder device" class="hero-device" />
+
+    <p class="body-text">
+      Dream Recorder is a dream journal that dreams back. Describe a dream —
+      speak it or type it — and it becomes a ten-second cinematic film,
+      generated just for you.
+    </p>
+
+    <div class="waitlist-block">
+      <h2 class="serif-h">Start recording</h2>
+      <p class="muted">Create an account, add your Luma API key, and turn tonight&rsquo;s dream into film.</p>
+      <div class="cta-row">
+        <button class="btn-dark" id="go-signup">Create account</button>
+        <button class="textlink" id="go-signin">Sign in</button>
+      </div>
+    </div>
+
+    <footer class="foot">
+      <p class="muted small">Each dream costs about $0.30 of Luma credit, paid from your own API key.</p>
+    </footer>
+  </section>
+
+  <!-- ==================== AUTH ==================== -->
+  <section id="view-auth" class="view hidden">
+    <div class="gate-wrap">
+      <h1 class="wordmark wordmark-sm">Dream Recorder</h1>
+      <p class="serif-sub" id="auth-heading">Create your account.</p>
+      <form id="auth-form" class="line-form" novalidate>
+        <input type="email" id="auth-email" class="line-input" placeholder="Email"
+               autocomplete="email" aria-label="Email" />
+        <input type="password" id="auth-password" class="line-input" placeholder="Password (6+ characters)"
+               autocomplete="current-password" aria-label="Password" />
+        <button type="submit" class="btn-dark" id="auth-submit">Create account</button>
+      </form>
+      <p id="auth-message" class="form-message" role="status"></p>
+      <p class="gate-meta"><button class="textlink" id="auth-toggle">Already have an account? Sign in</button></p>
+      <p class="gate-meta"><button class="textlink" id="auth-back">Back</button></p>
+    </div>
+  </section>
+
+  <!-- ==================== ACCOUNT ==================== -->
+  <section id="view-account" class="view hidden">
+    <div class="gate-wrap">
+      <h1 class="wordmark wordmark-sm">Dream Recorder</h1>
+      <p class="serif-sub">Your account.</p>
+      <p class="body-text"><span class="muted">Signed in as</span><br /><span id="account-email"></span></p>
+      <h2 class="serif-h">Your profile</h2>
+      <form id="profile-form" class="line-form" novalidate>
+        <input type="text" id="profile-name" class="line-input" placeholder="Your name"
+               autocomplete="name" aria-label="Your name" />
+        <input type="tel" id="profile-phone" class="line-input" placeholder="Phone number"
+               autocomplete="tel" aria-label="Phone number" />
+        <button type="submit" class="btn-dark">Save profile</button>
+      </form>
+      <p id="profile-message" class="form-message" role="status"></p>
+      <h2 class="serif-h">Luma API key</h2>
+      <p class="muted" id="key-status">No key added yet.</p>
+      <form id="key-form" class="line-form" novalidate>
+        <input type="text" id="account-key" class="line-input" placeholder="Paste your Luma API key"
+               autocomplete="off" spellcheck="false" aria-label="Luma API key" />
+        <button type="submit" class="btn-dark">Save key</button>
+      </form>
+      <p id="key-message" class="form-message" role="status"></p>
+      <p class="gate-meta"><button class="textlink" id="forget-key-2">Forget my key</button></p>
+      <div class="cta-row">
+        <button class="btn-dark" id="start-recording">Start recording</button>
+        <button class="textlink" id="sign-out-account">Sign out</button>
+      </div>
+      <p class="muted small gate-meta">
+        Your key is stored only in this browser and is sent only to Luma when you generate a dream.
+        No key yet? Get one at <a href="https://lumalabs.ai" target="_blank" rel="noopener">lumalabs.ai</a>
+        — add a few dollars of credit and create an API key.
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== RECORDER ==================== -->
+  <section id="view-recorder" class="view hidden">
+    <div class="recorder-head">
+      <img src="assets/logo-black.png" alt="Dream Recorder" class="brand-logo small" />
+      <div class="head-actions">
+        <button class="btn-ghost small" id="go-account">Account</button>
+        <button class="btn-ghost small" id="sign-out">Sign out</button>
+      </div>
+    </div>
+
+    <div class="device">
+      <div class="device-screen" id="device-screen">
+        <!-- idle -->
+        <div class="screen-state" id="screen-idle">
+          <img src="assets/logo-white.png" alt="Dream Recorder" class="device-logo" />
+        </div>
+        <!-- generating -->
+        <div class="screen-state hidden" id="screen-working">
+          <div class="pulse"></div>
+          <p id="working-text">Dreaming&hellip;</p>
+          <p class="muted small" id="working-timer"></p>
+        </div>
+        <!-- playback -->
+        <video class="screen-state hidden" id="dream-video" playsinline loop></video>
+      </div>
+      <p class="device-hint" id="device-hint">Describe your dream below, then press generate.</p>
+    </div>
+
+    <div class="input-panel">
+      <textarea id="dream-text" rows="4"
+        placeholder="Last night I dreamed I was walking through a field of giant glowing mushrooms&hellip;"></textarea>
+      <div class="input-actions">
+        <button class="btn-ghost" id="mic-btn" type="button">🎙 Speak</button>
+        <button class="btn-primary" id="generate-btn" type="button">Generate dream</button>
+      </div>
+      <p id="recorder-message" class="form-message" role="status"></p>
+      <p class="muted small" id="speech-note"></p>
+    </div>
+
+    <div class="after-actions hidden" id="after-actions">
+      <button class="btn-primary" id="record-another">Record another</button>
+      <button class="btn-ghost" id="fullscreen-btn">Watch fullscreen</button>
+    </div>
+  </section>
+
+  <!-- fullscreen playback overlay -->
+  <div id="fullscreen-overlay" class="hidden">
+    <video id="fullscreen-video" playsinline loop controls></video>
+    <button id="fullscreen-close" aria-label="Close">✕</button>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,433 @@
+/* Dream Recorder launch — original design system: Neue Montreal / TimesNow-SemiLight / Ballet, #fafafa / #1a1a1a. */
+
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("assets/fonts/NeueMontreal-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TimesNow-SemiLight";
+  src: url("assets/fonts/TimesNow-SemiLight.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Ballet";
+  src: url("assets/fonts/Ballet-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  --paper: #fafafa;
+  --paper-deep: #ececec;
+  --ink: #1a1a1a;
+  --text: #1a1a1a;
+  --ink-soft: #3d3d3d;
+  --muted: rgba(26, 26, 26, 0.55);
+  --border: rgba(26, 26, 26, 0.28);
+  --device: #0c0c0e;
+  --accent: #1a1a1a;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Neue Montreal", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.view {
+  width: 100%;
+  max-width: 720px;
+  padding: 48px 24px 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hidden { display: none !important; }
+
+/* ---------- landing / gate: the original's design language ---------- */
+
+#view-landing,
+#view-gate {
+  max-width: 880px;
+  align-items: stretch;
+  text-align: left;
+}
+
+.brand-logo {
+  width: 240px;
+  max-width: 70vw;
+  height: auto;
+  margin-bottom: 28px;
+}
+
+.brand-logo.small { width: 150px; margin-bottom: 18px; }
+
+.wordmark {
+  font-family: "Neue Montreal", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: clamp(3.2rem, 15vw, 7.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  margin: 0 0 20px;
+  color: var(--ink);
+}
+
+.wordmark-sm { font-size: clamp(2.6rem, 11vw, 4.5rem); }
+
+.serif-sub {
+  font-family: "TimesNow-SemiLight", Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(1.75rem, 7vw, 2.75rem);
+  line-height: 1.12;
+  margin: 0 0 30px;
+  color: var(--ink);
+}
+
+.hero-device {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 0 30px;
+}
+
+.body-text {
+  font-size: 1.12rem;
+  line-height: 1.55;
+  margin: 0 0 34px;
+  max-width: 36em;
+  color: var(--ink);
+}
+
+.serif-h {
+  font-family: "TimesNow-SemiLight", Georgia, serif;
+  font-weight: 400;
+  font-size: 1.9rem;
+  margin: 0 0 8px;
+  color: var(--ink);
+}
+
+.muted { color: var(--muted); }
+
+.serif-sub.small {
+  font-size: 1.5rem;
+  margin-top: 34px;
+}
+
+.cta-row {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  margin: 24px 0;
+}
+
+.gate-meta { margin-top: 22px; }
+
+.gate-meta.note { max-width: 560px; }
+
+#key-status { margin-bottom: 4px; }
+
+#profile-form .line-input + .line-input { margin-top: 4px; }
+
+#profile-form .btn-dark { margin-top: 18px; }
+
+#key-form .btn-dark { margin-top: 18px; }
+
+.line-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 14px;
+}
+
+form.line-form input.line-input {
+  width: 100%;
+  max-width: 440px;
+  flex: none;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+  padding: 12px 0;
+  font-size: 1.1rem;
+  color: var(--ink);
+  outline: none;
+  margin-bottom: 20px;
+}
+
+form.line-form input.line-input::placeholder { color: var(--muted); }
+
+form.line-form input.line-input:focus { border-bottom-color: var(--ink); }
+
+form.line-form input.line-input:disabled { opacity: 0.5; }
+
+.btn-dark {
+  background: var(--text);
+  color: #fafafa;
+  border: 1px solid var(--text);
+  border-radius: 0;
+  padding: 13px 30px;
+}
+
+.textlink {
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  white-space: normal;
+}
+
+button.textlink:hover { opacity: 0.7; }
+button.textlink:active { transform: none; }
+
+.key-cta {
+  margin-top: 8px;
+  font-size: 1.05rem;
+}
+
+.key-cta .textlink { margin-left: 8px; }
+
+.foot { margin-top: 56px; }
+
+.gate-meta { margin-top: 22px; }
+
+form {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+input[type="email"],
+input[type="password"],
+textarea {
+  flex: 1;
+  font: inherit;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 0;
+  background: #fff;
+  color: var(--ink);
+  outline: none;
+}
+
+input:focus, textarea:focus {
+  border-color: var(--ink);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: 1px solid var(--text);
+  border-radius: 0;
+  padding: 12px 22px;
+  background: var(--accent);
+  color: #fafafa;
+  white-space: nowrap;
+  transition: transform 0.12s ease, opacity 0.12s ease;
+}
+
+button:hover { opacity: 0.88; }
+button:active { transform: scale(0.97); }
+button:disabled { opacity: 0.45; cursor: default; }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--text);
+}
+
+.btn-ghost.small { padding: 8px 16px; font-size: 0.85rem; }
+
+.btn-primary { background: var(--accent); color: #fbf8f1; }
+
+.form-message {
+  min-height: 1.4em;
+  font-size: 0.9rem;
+  margin: 12px 0 0;
+}
+
+.form-message.ok { color: #2e7d4f; }
+.form-message.err { color: #b3402e; }
+
+
+
+/* ---------- recorder / device ---------- */
+
+.recorder-head {
+  width: 100%;
+  max-width: 680px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.recorder-head .brand-logo.small { margin-bottom: 0; }
+
+.head-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.device {
+  width: 100%;
+  max-width: 680px;
+  background: linear-gradient(165deg, #1b1b1f 0%, #0b0b0d 70%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 28px;
+  padding: 26px;
+  box-shadow:
+    0 30px 80px rgba(20, 15, 5, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.device-screen {
+  position: relative;
+  aspect-ratio: 21 / 9;
+  background: #000;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.screen-state {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+#screen-idle .device-logo {
+  width: 46%;
+  max-width: 320px;
+  height: auto;
+  opacity: 0.95;
+}
+
+#screen-working p { color: #e8e2d4; margin: 0; }
+
+.pulse {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #f5efdf;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.25; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+#dream-video {
+  width: 100%;
+  height: 100%;
+  object-fit: fill; /* fill the screen: no black bars, per design */
+  background: #000;
+  padding: 0;
+  gap: 0;
+}
+
+.device-hint {
+  text-align: center;
+  color: rgba(240, 234, 220, 0.55);
+  font-size: 0.85rem;
+  margin: 16px 0 0;
+}
+
+.input-panel {
+  width: 100%;
+  max-width: 680px;
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.input-panel textarea {
+  border-radius: 0;
+  resize: vertical;
+  min-height: 96px;
+  line-height: 1.5;
+}
+
+.input-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.after-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ---------- fullscreen overlay ---------- */
+
+#fullscreen-overlay {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#fullscreen-overlay video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+#fullscreen-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  font-size: 1.1rem;
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 560px) {
+  form { flex-direction: column; }
+  form button { width: 100%; }
+  .device { padding: 14px; border-radius: 22px; }
+  .input-actions { justify-content: stretch; }
+  .input-actions button { flex: 1; }
+}
